@@ -1,0 +1,39 @@
+# ── Environment & Secrets ────────────────────────────────
+.env
+deploy/.deploy.env
+
+# ── Python ───────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# ── Telegram Sessions (NEVER commit — account credentials) ──
+sessions/
+*.session
+*.session-journal
+
+# ── Media & Downloads ────────────────────────────────────
+media/*
+!media/.gitkeep
+*.part
+
+# ── Runtime Data ─────────────────────────────────────────
+file_id_cache.json
+manifest.json
+channel_manifest.json
+topup_users.json
+topup_claims.json
+web_app.log
+download.log
+
+# ── IDE & OS ─────────────────────────────────────────────
+.DS_Store
+.claude/
+.agents/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

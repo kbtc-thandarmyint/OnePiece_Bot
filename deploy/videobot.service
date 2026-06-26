@@ -1,0 +1,17 @@
+[Unit]
+Description=Telegram video button-bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Adjust User and paths to match your droplet.
+User=videobot
+WorkingDirectory=/opt/videobot
+ExecStart=/opt/videobot/.venv/bin/python /opt/videobot/bot.py
+Restart=on-failure
+RestartSec=5
+# Loads BOT_TOKEN etc. from the .env in WorkingDirectory (python-dotenv).
+
+[Install]
+WantedBy=multi-user.target

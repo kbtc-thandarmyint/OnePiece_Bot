@@ -1,0 +1,19 @@
+[Unit]
+Description=Telegram Web Manager (multi-tenant dashboard)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=thomas
+WorkingDirectory=/opt/videobot
+# PORT / COOKIE_SECURE / SESSIONS_DIR are read from /opt/videobot/.env via python-dotenv,
+# but pinned here too so the service is correct even with a bare .env.
+Environment=PORT=8080
+Environment=COOKIE_SECURE=true
+ExecStart=/opt/videobot/.venv/bin/python /opt/videobot/web_app.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=MLBB Diamond top-up Telegram bot (customer-facing, bot-scoped)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=thomas
+WorkingDirectory=/opt/videobot
+# Needs TELEGRAM_TOPUP_BOT_TOKEN in /opt/videobot/.env (read via python-dotenv).
+# Real orders stay off unless TOPUP_ORDERS_ENABLED=true is also set there.
+ExecStart=/opt/videobot/.venv/bin/python /opt/videobot/topup_bot.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
