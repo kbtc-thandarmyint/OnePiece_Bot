@@ -37,3 +37,4 @@ download.log
 *.swp
 *.swo
 *~
+phone_code_hash.txt
